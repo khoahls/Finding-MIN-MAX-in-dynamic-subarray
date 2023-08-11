@@ -1,41 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_project_file>
-	<FileVersion major="1" minor="6" />
-	<Project>
-		<Option title="noname" />
-		<Option execution_dir="C:/Users/admin/Downloads/noname/" />
-		<Option pch_mode="2" />
-		<Option compiler="gcc" />
-		<Build>
-			<Target title="Debug">
-				<Option output="bin/Debug/noname" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-g" />
-				</Compiler>
-			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/noname" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-O2" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
-			</Target>
-		</Build>
-		<Compiler>
-			<Add option="-Wall" />
-			<Add option="-fexceptions" />
-		</Compiler>
-		<Unit filename="../Downloads/noname/main.cpp" />
-		<Extensions>
-			<lib_finder disable_auto="1" />
-		</Extensions>
-	</Project>
-</CodeBlocks_project_file>
+#include <iostream>
+#include <vector>
+#include<deque>
+using namespace std;
+
+vector<int> minsubarray(vector<int> A, int k){
+deque<int> mydeque;
+while (mydeque.size()) mydeque.pop_front();
+vector<int> ans;
+for(int i=0; i<A.size();++i){
+while(mydeque.size()&&A[mydeque.back()]>=A[i]) mydeque.pop_back();
+mydeque.push_back(i);
+if(mydeque.front()+k<=i)
+mydeque.pop_front();
+if(i>=k)
+    ans.push_back(A[mydeque.front()]);}
+return ans;
+}
+int main()
+{
+int k;
+cin>> k;
+int N;
+cin>> N;
+vector<int> A(N);
+for(int i=0; i<N; i++){
+    cin >> A[i];
+}
+vector<int> ans= minsubarray(A,k);
+for(int i=0; i<ans.size();i++){
+    cout<< ans[i];
+}
+return 0;
+}
